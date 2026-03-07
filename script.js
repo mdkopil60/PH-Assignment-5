@@ -11,9 +11,6 @@ async function loadIssues(type) {
     }
     displayIssues(issues)
 }
-
-
-
 // Display Issues Card
 function displayIssues(issues) {
     const container = document.getElementById("issuesContainer")
@@ -23,19 +20,14 @@ function displayIssues(issues) {
         const borderColor = issue.status === "open"
             ? "border-green-500"
             : "border-purple-500"
-
         container.innerHTML += `
     <div onclick="showModal(${issue.id})"
     class="bg-white rounded-lg shadow-md border-t-4 ${borderColor} p-4 cursor-pointer hover:shadow-lg transition">
-
     <div class="flex justify-between items-center mb-2">
-
     <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
     ${issue.priority}
     </span>
-
     </div>
-
     <h2 class="font-semibold text-sm mb-1">
     ${issue.title}
     </h2>
@@ -63,8 +55,6 @@ function displayIssues(issues) {
     `
     })
 }
-
-
 // Modal (Issue Details)
 async function showModal(id) {
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
@@ -75,7 +65,6 @@ async function showModal(id) {
     Category: ${issue.category}
     Author: ${issue.author}
     Priority: ${issue.priority}`)
-
 }
 // Search Function
 async function searchIssue() {
@@ -83,13 +72,10 @@ async function searchIssue() {
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
     const data = await res.json()
     displayIssues(data.data)
-
 }
-
 // Page Load
 window.onload = () => {
     loadIssues("all")
-
 }
 // 
 async function showModal(id) {
@@ -112,5 +98,4 @@ async function showModal(id) {
     document.getElementById("modalPriority").innerText =
         issue.priority
     document.getElementById("issueModal").showModal()
-
 }

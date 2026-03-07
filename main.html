@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Issues Dashboard</title>
-
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
-
     <!-- style css link -->
     <link rel="stylesheet" href="./style.css">
-
     <!-- tailwind + daisyui -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-
 <body class="bg-gray-100">
-
     <!-- Navbar -->
-
     <div class="bg-white border-b">
         <div class="max-w-7xl mx-auto px-7 py-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -35,22 +28,17 @@
             </div>
         </div>
     </div>
-
     <!-- Tabs -->
-
     <div class="max-w-7xl mx-auto mt-6">
         <div class="tabs tabs-boxed mb-4">
             <button onclick="loadIssues('all')" class="btn btn-primary">All</button>
             <button onclick="loadIssues('open')" class="tab">Open</button>
             <button onclick="loadIssues('closed')" class="tab">Closed</button>
         </div>
-
         <!-- Issues Container -->
         <div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         </div>
-
         <!-- Issue Modal -->
-
         <dialog id="issueModal" class="modal">
             <div class="modal-box w-11/12 max-w-2xl">
                 <h3 id="modalTitle" class="text-xl font-bold"></h3>
