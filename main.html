@@ -23,20 +23,17 @@
 
     <!-- Navbar -->
 
-    <div class="navbar bg-white shadow px-6">
-        <div class="flex-1">
-            <h1 class="text-xl font-bold">GitHub Issues Tracker</h1>
+    <div class="bg-white border-b">
+        <div class="max-w-7xl mx-auto px-7 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="./assets/github-logo.png" class="w-7 h-7" alt="">
+                <h1 class="text-xl font-semibold">GitHub Issues Tracker</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <input id="searchInput" type="text" placeholder="Search issues..." class="input input-bordered w-40 md: w-99">
+                <button onclick="searchIssue()" class="btn btn-primary">+ New Issue</button>
+            </div>
         </div>
-
-        <div>
-            <input id="searchInput" type="text" placeholder="Search issue" class="input input-bordered mr-2">
-
-            <button onclick="searchIssue()" class="btn btn-primary">
-                Search
-            </button>
-
-        </div>
-
     </div>
 
     <!-- Tabs -->

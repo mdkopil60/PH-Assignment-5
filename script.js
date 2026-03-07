@@ -49,7 +49,7 @@ function displayIssues(issues) {
     </span>
 
     <span class="text-xs bg-yellow-100 text-yellow-600 px-2 py-1 rounded">
-    ${issue.label}
+    ${issue.labels}
     </span>
 
     </div>
