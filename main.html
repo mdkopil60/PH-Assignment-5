@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issues Dashboard</title>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- style css link -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- tailwind + daisyui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+
+    <div class="navbar bg-white shadow px-6">
+        <div class="flex-1">
+            <h1 class="text-xl font-bold">GitHub Issues Tracker</h1>
+        </div>
+
+        <div>
+            <input id="searchInput" type="text" placeholder="Search issue" class="input input-bordered mr-2">
+
+            <button onclick="searchIssue()" class="btn btn-primary">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Tabs -->
+
+    <div class="max-w-7xl mx-auto mt-6">
+        <div class="tabs tabs-boxed mb-4">
+            <button onclick="loadIssues('all')" class="btn btn-primary">All</button>
+            <button onclick="loadIssues('open')" class="tab">Open</button>
+            <button onclick="loadIssues('closed')" class="tab">Closed</button>
+        </div>
+
+        <!-- Issues Container -->
+        <div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        </div>
+
+        <!-- Issue Modal -->
+
+        <dialog id="issueModal" class="modal">
+            <div class="modal-box w-11/12 max-w-2xl">
+                <h3 id="modalTitle" class="text-xl font-bold"></h3>
+                <div class="flex gap-2 mt-2">
+                    <span id="modalStatus" class="badge badge-success"></span>
+                    <span id="modalAuthor" class="text-sm text-gray-500"></span>
+                </div>
+
+                <div class="mt-3 flex gap-2">
+                    <span id="modalCategory" class="badge badge-error"></span>
+                    <span id="modalLabel" class="badge badge-warning"></span>
+                </div>
+
+                <p id="modalDescription" class="py-4"></p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-400 text-sm">Assignee</p>
+                        <p id="modalAssignee" class="font-semibold"></p>
+                    </div>
+
+                    <div>
+                         <p class="text-gray-400 text-sm">Priority</p>
+                        <span id="modalPriority" class="badge badge-error"></span>
+                    </div>
+                </div>
+
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn btn-primary">
+                            Close
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+
+        <script src="./script.js"></script>
+
+</body>
+
+</html>

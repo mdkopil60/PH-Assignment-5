@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Issues Tracker</title>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- style css link -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- tailwind + daisyui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="card w-96 bg-white shadow-xl p-6">
+        <div class="text-center mb-5">
+            <img src="./assets/github-logo.png" class="w-12 mx-auto">
+            <h2 class="text-2xl font-bold mt-2">GitHub Issues Tracker</h2>
+            <p class="text-gray-500 text-sm">Sign in to manage your issues</p>
+        </div>
+        <p>Username</p>
+        <input id="username" type="text" placeholder="Enter Username" class="input input-bordered w-full mb-3">
+        <p>Default: admin</p> <br>
+        <p>Password</p>
+        <input id="password" type="password" placeholder="Enter Password" class="input input-bordered w-full mb-3">
+        <p>Default: admin123</p>
+
+        <button onclick="login()" class="btn btn-primary w-full">Sign In</button>
+        <p class="text-xs text-center mt-4">Demo: admin / admin123</p>
+
+
+
+        <script src="./login.js"></script>
+
+</body>
+
+</html>
