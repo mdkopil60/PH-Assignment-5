@@ -7,7 +7,7 @@ function login() {
 
         localStorage.setItem("login", "true")
 
-        window.location.href = "dashboard.html"
+        window.location.href = "./main.html"
 
     }
 
