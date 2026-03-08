@@ -1,5 +1,5 @@
-// Load Issues from API
 async function loadIssues(type) {
+    document.getElementById("loadingSpinner").classList.remove("hidden")
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     const data = await res.json()
     let issues = data.data
@@ -10,12 +10,11 @@ async function loadIssues(type) {
         issues = issues.filter(issue => issue.status === "closed")
     }
     displayIssues(issues)
+    document.getElementById("loadingSpinner").classList.add("hidden")
 }
-
 
 // Display Issues Card
 function displayIssues(issues) {
-
     const container = document.getElementById("issuesContainer")
     container.innerHTML = ""
     document.getElementById("issueCount").innerText = issues.length
@@ -107,30 +106,32 @@ async function searchIssue() {
     displayIssues(data.data)
 }
 // Page Load
+function changeTab(type) {
+    document.getElementById("tab-all").classList.remove("tab-active")
+    document.getElementById("tab-open").classList.remove("tab-active")
+    document.getElementById("tab-closed").classList.remove("tab-active")
+    document.getElementById(`tab-${type}`).classList.add("tab-active")
+    loadIssues(type)
+}
 window.onload = () => {
-    loadIssues("all")
+    changeTab("all")
 }
 // module show
 async function showModal(id) {
-
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
     const data = await res.json()
     const issue = data.data
-
     document.getElementById("modalTitle").innerText = issue.title
     document.getElementById("modalStatus").innerText = issue.status
     document.getElementById("modalAuthor").innerText =
         "Opened by " + issue.author + " • " + new Date(issue.createdAt).toLocaleDateString()
-
     document.getElementById("modalDescription").innerText = issue.description
     document.getElementById("modalAssignee").innerText = issue.author
     document.getElementById("modalPriority").innerText = issue.priority
 
     // safe labels
     const labels = (issue.labels || []).map(label => {
-
         let labelColor = "bg-gray-100 text-gray-600"
-
         if (label === "bug") {
             labelColor = "bg-red-100 text-red-600"
         }
@@ -146,15 +147,12 @@ async function showModal(id) {
         else {
             labelColor = "bg-yellow-100 text-yellow-600"
         }
-
         return `
         <span class="text-[10px] px-2 py-1 rounded-full ${labelColor}">
             ${label.toUpperCase()}
         </span>
         `
     }).join("")
-
     document.getElementById("modalLabel").innerHTML = labels
-
     document.getElementById("issueModal").showModal()
 }
