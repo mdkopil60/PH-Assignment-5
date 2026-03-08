@@ -18,81 +18,86 @@ function displayIssues(issues) {
 
     const container = document.getElementById("issuesContainer")
     container.innerHTML = ""
-
     document.getElementById("issueCount").innerText = issues.length
-
     issues.forEach(issue => {
+        const labels = issue.labels.map(label => {
 
-        const borderColor = issue.status === "open"
-            ? "border-green-500"
-            : "border-purple-500"
+            let labelColor = "bg-gray-100 text-gray-600"
 
-        const statusIcon = issue.status === "open"
-            ? "./assets/Open-Status.png"
-            : "./assets/Closed- Status .png"
-
+            if (label === "bug") {
+                labelColor = "bg-red-100 text-red-600"
+            }
+            else if (label === "enhancement") {
+                labelColor = "bg-green-100 text-green-600"
+            }
+            else if (label === "help wanted") {
+                labelColor = "bg-yellow-100 text-yellow-600"
+            }
+             else if (label === "documentation") {
+                labelColor = "bg-blue-100 text-blue-600"
+            }
+            else {
+                labelColor = "bg-yellow-100 text-yellow-600"
+            }
+            return `
+            <span class="text-[10px] px-2 py-1 rounded-full ${labelColor}">
+            ${label.toUpperCase()}
+            </span>
+            `
+            }).join("")
+        const borderColor =
+            issue.status === "open"
+                ? "border-green-500"
+                : "border-purple-500"
+        const statusIcon =
+            issue.status === "open"
+                ? "./assets/Open-Status.png"
+                : "./assets/Closed- Status .png"
         const priorityColor =
-            issue.priority === "HIGH"
+            issue.priority === "high"
                 ? "bg-red-100 text-red-600"
-                : issue.priority === "MEDIUM"
+                : issue.priority === "medium"
                     ? "bg-yellow-100 text-yellow-600"
                     : "bg-gray-100 text-gray-600"
+       
 
         container.innerHTML += `
-
+        
         <div onclick="showModal(${issue.id})"
-        class="bg-white rounded-xl shadow-md border-t-4 ${borderColor} p-4 cursor-pointer hover:shadow-lg transition duration-300">
+        class="bg-white rounded-xl shadow-sm border-t-4 ${borderColor} p-4 cursor-pointer hover:shadow-md transition">
 
-            <!-- Top Section -->
             <div class="flex justify-between items-center mb-2">
 
-                <!-- Left Icon -->
-                <img src="${statusIcon}" class="w-5 h-5">
+                <img src="${statusIcon}" class="w-4 h-4">
 
-                <!-- Priority -->
-                <span class="text-xs px-2 py-1 rounded-full ${priorityColor}">
-                    ${issue.priority}
+                <span class="text-[10px] px-2 py-1 rounded-full ${priorityColor}">
+                    ${issue.priority.toUpperCase()}
                 </span>
 
             </div>
 
-            <!-- Title -->
             <h2 class="font-semibold text-sm mb-1">
                 ${issue.title}
             </h2>
 
-            <!-- Description -->
             <p class="text-xs text-gray-500 mb-3 line-clamp-2">
                 ${issue.description}
             </p>
 
-            <!-- Labels -->
-            <div class="flex gap-2 mb-3">
-
-                <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">
-                    ${issue.category}
-                </span>
-
-                <span class="text-xs bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full">
-                    ${issue.label}
-                </span>
-
+            <div class="flex gap-2 mb-3 flex-wrap">
+                ${labels}
             </div>
 
-            <!-- Footer -->
             <div class="text-xs text-gray-400">
                 #${issue.id} by ${issue.author}
                 <br>
-                ${issue.createdAt}
+                ${new Date(issue.createdAt).toLocaleDateString()}
             </div>
 
         </div>
         `
     })
 }
-
-
-
 // Modal (Issue Details)
 async function showModal(id) {
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
