@@ -143,7 +143,7 @@ async function showModal(id) {
         else if (label === "documentation") {
             labelColor = "bg-blue-100 text-blue-600"
         }
-        else{
+        else {
             labelColor = "bg-yellow-100 text-yellow-600"
         }
 
