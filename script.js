@@ -33,7 +33,7 @@ function displayIssues(issues) {
             else if (label === "help wanted") {
                 labelColor = "bg-yellow-100 text-yellow-600"
             }
-             else if (label === "documentation") {
+            else if (label === "documentation") {
                 labelColor = "bg-blue-100 text-blue-600"
             }
             else {
@@ -44,7 +44,8 @@ function displayIssues(issues) {
             ${label.toUpperCase()}
             </span>
             `
-            }).join("")
+        }).join("")
+        document.getElementById("modalLabel").innerHTML = labels
         const borderColor =
             issue.status === "open"
                 ? "border-green-500"
@@ -59,7 +60,7 @@ function displayIssues(issues) {
                 : issue.priority === "medium"
                     ? "bg-yellow-100 text-yellow-600"
                     : "bg-gray-100 text-gray-600"
-       
+
 
         container.innerHTML += `
         
@@ -98,17 +99,6 @@ function displayIssues(issues) {
         `
     })
 }
-// Modal (Issue Details)
-async function showModal(id) {
-    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
-    const data = await res.json()
-    const issue = data.data
-    alert(`Title: ${issue.title}
-    Description: ${issue.description}
-    Category: ${issue.category}
-    Author: ${issue.author}
-    Priority: ${issue.priority}`)
-}
 // Search Function
 async function searchIssue() {
     const text = document.getElementById("searchInput").value
@@ -120,7 +110,7 @@ async function searchIssue() {
 window.onload = () => {
     loadIssues("all")
 }
-// 
+// module show
 async function showModal(id) {
 
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
@@ -130,15 +120,41 @@ async function showModal(id) {
     document.getElementById("modalTitle").innerText = issue.title
     document.getElementById("modalStatus").innerText = issue.status
     document.getElementById("modalAuthor").innerText =
-        "Opened by " + issue.author + " • " + issue.createdAt
+        "Opened by " + issue.author + " • " + new Date(issue.createdAt).toLocaleDateString()
 
-    document.getElementById("modalCategory").innerText = issue.category
-    document.getElementById("modalLabel").innerText = issue.label
-    document.getElementById("modalDescription").innerText =
-        issue.description
-    document.getElementById("modalAssignee").innerText =
-        issue.author
-    document.getElementById("modalPriority").innerText =
-        issue.priority
+    document.getElementById("modalDescription").innerText = issue.description
+    document.getElementById("modalAssignee").innerText = issue.author
+    document.getElementById("modalPriority").innerText = issue.priority
+
+    // safe labels
+    const labels = (issue.labels || []).map(label => {
+
+        let labelColor = "bg-gray-100 text-gray-600"
+
+        if (label === "bug") {
+            labelColor = "bg-red-100 text-red-600"
+        }
+        else if (label === "enhancement") {
+            labelColor = "bg-green-100 text-green-600"
+        }
+        else if (label === "help wanted") {
+            labelColor = "bg-yellow-100 text-yellow-600"
+        }
+        else if (label === "documentation") {
+            labelColor = "bg-blue-100 text-blue-600"
+        }
+        else{
+            labelColor = "bg-yellow-100 text-yellow-600"
+        }
+
+        return `
+        <span class="text-[10px] px-2 py-1 rounded-full ${labelColor}">
+            ${label.toUpperCase()}
+        </span>
+        `
+    }).join("")
+
+    document.getElementById("modalLabel").innerHTML = labels
+
     document.getElementById("issueModal").showModal()
 }
