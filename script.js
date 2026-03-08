@@ -11,10 +11,13 @@ async function loadIssues(type) {
     }
     displayIssues(issues)
 }
+
+
 // Display Issues Card
 function displayIssues(issues) {
     const container = document.getElementById("issuesContainer")
     container.innerHTML = ""
+    document.getElementById("issueCount").innerText = issues.length
     issues.forEach(issue => {
 
         const borderColor = issue.status === "open"
